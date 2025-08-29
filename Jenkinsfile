@@ -19,15 +19,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Testing HTML files...'
-                sh 'grep -i "<html" index.html || echo "HTML tag missing"'
+                sh 'grep -i "<html" Login_page.html || echo "HTML tag missing"'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying HTML files...'
-                // Example: copy to /var/www/html or archive artifacts
-                sh 'cp -r * /var/www/html/'  // requires proper permissions
+                echo 'Archiving HTML files...'
+                archiveArtifacts artifacts: 'Login_page.html', fingerprint: true
             }
         }
     }
