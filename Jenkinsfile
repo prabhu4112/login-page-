@@ -1,5 +1,5 @@
 pipeline {
-    agent any   // Runs on any available Jenkins agent
+    agent any
 
     stages {
         stage('Clone') {
@@ -11,35 +11,33 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building the application...'
-                // Example: For Java Maven project
-                sh 'mvn clean install'
+                echo 'No build needed for HTML project'
+                sh 'ls -l'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                // Example: Run unit tests
-                sh 'mvn test'
+                echo 'Testing HTML files...'
+                sh 'grep -i "<html" index.html || echo "HTML tag missing"'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                // Example: Deploy to Tomcat or any server
-                sh 'echo Deploy step executed'
+                echo 'Deploying HTML files...'
+                // Example: copy to /var/www/html or archive artifacts
+                sh 'cp -r * /var/www/html/'  // requires proper permissions
             }
         }
     }
 
     post {
-        success {
-            echo 'Pipeline executed successfully!'
-        }
         failure {
             echo 'Pipeline failed.'
+        }
+        success {
+            echo 'Pipeline completed successfully.'
         }
     }
 }
