@@ -1,5 +1,5 @@
 pipeline {
-    agent apple
+    agent { label 'apple' }
 
     stages {
         stage('Clone') {
