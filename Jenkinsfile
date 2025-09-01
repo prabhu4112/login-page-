@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent apple
 
     stages {
         stage('Clone') {
